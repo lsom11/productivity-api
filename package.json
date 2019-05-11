@@ -7,8 +7,7 @@
     "start": "node start.js",
     "dev": "nodemon start.js",
     "test": "mocha tests --recursive --watch",
-    "deploy": "yarn setup && serverless deploy -v --aws-profile PRODUCTIVITYAPI",
-    "setup": "serverless config credentials --provider aws --key AKIA3FHB244KQEJDMW7Q --secret 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 --profile PRODUCTIVITYAPI -o"
+    "deploy": "serverless deploy -v --aws-profile productivity-api"
   },
   "author": "Luc Somers",
   "license": "ISC",
@@ -25,6 +24,7 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",
+    "cross-var": "^1.1.0",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "joi": "^14.3.1",
