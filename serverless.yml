@@ -8,6 +8,9 @@ provider:
   stage: v1
   region: us-east-1
 
+plugins:
+  - serverless-offline
+
 functions:
   dailyQuestionAdd:
     handler: api/functions/dailyQuestions.add
@@ -17,6 +20,14 @@ functions:
       - http:
           path: daily_questions
           method: post
+  test:
+    handler: api/functions/dailyQuestions.test
+    memorySize: 128
+    description: Add a daily question
+    events:
+      - http:
+          path: test
+          method: get
   dailyQuestionGet:
     handler: api/functions/dailyQuestions.get
     memorySize: 128

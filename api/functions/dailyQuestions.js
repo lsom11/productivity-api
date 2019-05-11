@@ -1,4 +1,7 @@
-'use strict';
+module.exports.test = (event, context, callback) => {
+  console.log(event, 'here');
+  return 'hello';
+};
 
 module.exports.add = (event, context, callback) => {
   const response = {

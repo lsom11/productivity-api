@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node start.js",
-    "dev": "nodemon start.js",
+    "dev": "serverless offline -p v1",
     "test": "mocha tests --recursive --watch",
     "deploy": "serverless deploy -v --aws-profile productivity-api"
   },
@@ -28,7 +28,8 @@
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "joi": "^14.3.1",
-    "mongoose": "^5.5.5"
+    "mongoose": "^5.5.5",
+    "serverless-offline": "^4.10.0"
   },
   "devDependencies": {
     "@babel/runtime": "^7.4.4",
