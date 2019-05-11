@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node start.js",
     "dev": "nodemon start.js",
-    "test": "mocha tests --recursive --watch"
+    "test": "mocha tests --recursive --watch",
+    "deploy": "yarn setup && serverless deploy -v --aws-profile PRODUCTIVITYAPI",
+    "setup": "serverless config credentials --provider aws --key AKIA3FHB244KQEJDMW7Q --secret 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 --profile PRODUCTIVITYAPI -o"
   },
   "author": "Luc Somers",
   "license": "ISC",

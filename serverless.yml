@@ -1,0 +1,27 @@
+service: daily-questions-service
+
+frameworkVersion: '>=1.1.0 <2.0.0'
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: v1
+  region: us-east-1
+
+functions:
+  dailyQuestionAdd:
+    handler: api/functions/dailyQuestions.add
+    memorySize: 128
+    description: Add a daily question
+    events:
+      - http:
+          path: daily_questions
+          method: post
+  dailyQuestionGet:
+    handler: api/functions/dailyQuestions.get
+    memorySize: 128
+    description: Get list of daily questions
+    events:
+      - http:
+          path: daily_questions
+          method: get
