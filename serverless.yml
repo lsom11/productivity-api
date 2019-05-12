@@ -12,27 +12,38 @@ plugins:
   - serverless-offline
 
 functions:
-  dailyQuestionAdd:
-    handler: api/functions/dailyQuestions.add
-    memorySize: 128
-    description: Add a daily question
+  create:
+    handler: api/functions/dailyQuestions.create
     events:
       - http:
           path: daily_questions
           method: post
-  test:
-    handler: api/functions/dailyQuestions.test
-    memorySize: 128
-    description: Add a daily question
+          cors: true
+  getOne:
+    handler: api/functions/dailyQuestions.getOne
     events:
       - http:
-          path: test
+          path: daily_questions/{id}
           method: get
-  dailyQuestionGet:
-    handler: api/functions/dailyQuestions.get
-    memorySize: 128
-    description: Get list of daily questions
+          cors: true
+  getAll:
+    handler: api/functions/dailyQuestions.getAll
     events:
       - http:
           path: daily_questions
           method: get
+          cors: true
+  update:
+    handler: api/functions/dailyQuestions.update
+    events:
+      - http:
+          path: daily_questions/{id}
+          method: put
+          cors: true
+  delete:
+    handler: api/functions/dailyQuestions.delete
+    events:
+      - http:
+          path: daily_questions/{id}
+          method: delete
+          cors: true
