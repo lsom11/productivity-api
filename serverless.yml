@@ -12,38 +12,89 @@ plugins:
   - serverless-offline
 
 functions:
+  verify-token:
+    handler: api/handlers/auth/VerifyToken.auth
+
+  login:
+    handler: api/handlers/auth/AuthHandler.login
+    events:
+      - http:
+          path: login
+          method: post
+          cors: true
+
+  register:
+    handler: api/handlers/auth/AuthHandler.register
+    events:
+      - http:
+          path: register
+          method: post
+          cors: true
+
+  me:
+    handler: api/handlers/auth/AuthHandler.me
+    events:
+      - http:
+          path: me
+          method: get
+          cors: true
+          authorizer: verify-token
+
+  getUsers:
+    handler: api/handlers/user/UserHandler.getUsers
+    events:
+      - http:
+          path: users
+          method: get
+          cors: true
+          authorizer: verify-token
+
   create:
-    handler: api/functions/dailyQuestions.create
+    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.create
     events:
       - http:
           path: daily_questions
           method: post
           cors: true
+          authorizer: verify-token
+
   getOne:
-    handler: api/functions/dailyQuestions.getOne
+    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.getOne
     events:
       - http:
           path: daily_questions/{id}
           method: get
           cors: true
+          authorizer: verify-token
   getAll:
-    handler: api/functions/dailyQuestions.getAll
+    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.getAll
     events:
       - http:
           path: daily_questions
           method: get
           cors: true
+          authorizer: verify-token
+  getAllWithId:
+    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.getAllWithId
+    events:
+      - http:
+          path: daily_questions/user
+          method: get
+          cors: true
+          authorizer: verify-token
   update:
-    handler: api/functions/dailyQuestions.update
+    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.update
     events:
       - http:
           path: daily_questions/{id}
           method: put
           cors: true
+          authorizer: verify-token
   delete:
-    handler: api/functions/dailyQuestions.delete
+    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.delete
     events:
       - http:
           path: daily_questions/{id}
           method: delete
           cors: true
+          authorizer: verify-token

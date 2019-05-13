@@ -6,15 +6,15 @@ const Joigoose = require('joigoose')(mongoose, null, {
 
 const Joi = require('joi');
 
-const DailyQuestionSchema = Joi.object().keys({
-  question: Joi.string().required(),
-  answer: Joi.string().optional(),
-  user_id: Joi.string().required(),
+const UserSchema = Joi.object().keys({
+  username: Joi.string().required(),
+  password: Joi.string().required(),
+  email: Joi.string().required(),
 });
 
-const schema = Joigoose.convert(DailyQuestionSchema);
+const schema = Joigoose.convert(UserSchema);
 
 schema.updatedAt = { type: Date, default: Date.now };
 schema.createdAt = { type: Date, default: Date.now };
 
-module.exports = mongoose.model('DailyQuestion', schema);
+module.exports = mongoose.model('User', schema);
