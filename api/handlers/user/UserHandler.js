@@ -1,4 +1,6 @@
 // UserHandler.js
+const DailyQuestion = require('../../models/DailyQuestion');
+const { me } = require('../../helpers/AuthHelpers');
 
 const connectToDatabase = require('../../db');
 
@@ -16,5 +18,22 @@ module.exports.getUsers = (event, context) => {
       statusCode: err.statusCode || 500,
       headers: { 'Content-Type': 'text/plain' },
       body: JSON.stringify({ message: err.message }),
+    }));
+};
+
+module.exports.getQuestionsByUserId = (event, context, callback) => {
+  context.callbackWaitsForEmptyEventLoop = false;
+  return connectToDatabase()
+    .then(() => me(event.requestContext.authorizer.principalId))
+    .then(session =>
+      DailyQuestion.find({ user_id: session._id }).then(questions => ({
+        statusCode: 200,
+        body: JSON.stringify(questions),
+      }))
+    )
+    .catch(err => ({
+      statusCode: err.statusCode || 500,
+      headers: { 'Content-Type': 'text/plain' },
+      body: { stack: err.stack, message: err.message },
     }));
 };

@@ -10,6 +10,20 @@ const UserSchema = Joi.object().keys({
   username: Joi.string().required(),
   password: Joi.string().required(),
   email: Joi.string().required(),
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  region: Joi.string().optional(),
+  configurations: Joi.object()
+    .keys({
+      features: Joi.object()
+        .keys({
+          daily_questions: Joi.boolean().required(),
+          habit_tracker: Joi.boolean().required(),
+          time_tracker: Joi.boolean().required(),
+        })
+        .required(),
+    })
+    .optional(),
 });
 
 const schema = Joigoose.convert(UserSchema);

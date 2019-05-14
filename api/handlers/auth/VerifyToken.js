@@ -8,11 +8,9 @@ module.exports.auth = (event, context, callback) => {
   const token = event.authorizationToken;
 
   if (!token) return callback(null, 'Unauthorized');
-  console.log(token, process.env.JWT_SECRET, 'tok');
   // verifies secret and checks exp
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
     if (err) {
-      console.log(err, 'inside');
       return callback(null, 'Unauthorized');
     }
     // if everything is good, save to request for use in other routes

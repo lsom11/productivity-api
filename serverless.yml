@@ -35,7 +35,16 @@ functions:
     handler: api/handlers/auth/AuthHandler.me
     events:
       - http:
-          path: me
+          path: user
+          method: get
+          cors: true
+          authorizer: verify-token
+
+  getQuestionsByUserId:
+    handler: api/handlers/user/UserHandler.getQuestionsByUserId
+    events:
+      - http:
+          path: user/questions
           method: get
           cors: true
           authorizer: verify-token
@@ -45,6 +54,24 @@ functions:
     events:
       - http:
           path: users
+          method: get
+          cors: true
+          authorizer: verify-token
+
+  configText:
+    handler: api/handlers/config/ConfigHandler.text
+    events:
+      - http:
+          path: config/text
+          method: get
+          cors: true
+          authorizer: verify-token
+
+  configFeatures:
+    handler: api/handlers/config/ConfigHandler.features
+    events:
+      - http:
+          path: config/features
           method: get
           cors: true
           authorizer: verify-token
@@ -74,14 +101,7 @@ functions:
           method: get
           cors: true
           authorizer: verify-token
-  getAllWithId:
-    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.getAllWithId
-    events:
-      - http:
-          path: daily_questions/user
-          method: get
-          cors: true
-          authorizer: verify-token
+
   update:
     handler: api/handlers/dailyQuestions/DailyQuestionsHandler.update
     events:

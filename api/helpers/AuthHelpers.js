@@ -1,8 +1,8 @@
 // AuthHandler.js
 
-const User = require('../models/User');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs-then');
+const User = require('../models/User');
 
 /*
  * Helpers
@@ -11,6 +11,12 @@ function signToken(id) {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: 86400, // expires in 24 hours
   });
+}
+
+function validateEmail(email) {
+  const regex = /^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+  if (regex.test(email)) return true;
+  return false;
 }
 
 function checkIfInputIsValid(eventBody) {
@@ -33,7 +39,10 @@ function checkIfInputIsValid(eventBody) {
       new Error('Username error. Username needs to longer than 5 characters')
     );
 
-  if (!(eventBody.email && typeof eventBody.username === 'string'))
+  if (
+    (!eventBody.email || !validateEmail(eventBody.email)) &&
+    typeof eventBody.username === 'string'
+  )
     return Promise.reject(
       new Error('Email error. Email must have valid characters.')
     );
@@ -44,12 +53,17 @@ function checkIfInputIsValid(eventBody) {
 function register(eventBody) {
   return checkIfInputIsValid(eventBody) // validate input
     .then(
-      () => User.findOne({ email: eventBody.email }) // check if user exists
+      () =>
+        User.findOne({
+          $or: [{ email: eventBody.email }, { username: eventBody.username }],
+        }) // check if user exists
     )
     .then(
       user =>
         user
-          ? Promise.reject(new Error('User with that email exists.'))
+          ? Promise.reject(
+              new Error('User with that email or username already exists.')
+            )
           : bcrypt.hash(eventBody.password, 8) // hash the pass
     )
     .then(
@@ -58,6 +72,16 @@ function register(eventBody) {
           username: eventBody.username,
           email: eventBody.email,
           password: hash,
+          firstName: eventBody.firstName,
+          lastName: eventBody.lastName,
+          region: eventBody.region || 'en-US',
+          configurations: {
+            features: {
+              daily_questions: true,
+              habit_tracker: true,
+              time_tracker: true,
+            },
+          },
         })
       // create the new user
     )
