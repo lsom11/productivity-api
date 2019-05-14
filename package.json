@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node start.js",
     "dev": "serverless offline start -p v1 --skipCacheInvalidation",
-    "test": "mocha tests --recursive --watch",
+    "test": "mocha api/tests --recursive --watch",
     "deploy": "serverless deploy -v --aws-profile productivity-api",
     "seed": "babel-node api/seeders/dailyQuestionSeeder.js"
   },
