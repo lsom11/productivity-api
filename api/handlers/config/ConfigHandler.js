@@ -7,12 +7,15 @@ module.exports.text = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
   // TODO - CHANGE SESSION TO DEVICE INFO AND REMOVE AUTH FROM SERVERLESS
   connectToDatabase()
-    .then(() => me(event.requestContext.authorizer.principalId))
-    .then(session => {
+    .then(() => {
+      const {
+        queryStringParameters: { locale },
+      } = event;
+      console.log(locale);
       let text;
-      if (session.region == 'pt-BR') text = portugueseText;
-      else text = englishText;
-
+      if (locale == 'en' || 'en-US') text = englishText;
+      else text = portugueseText;
+      console.log(text, 'here', locale);
       callback(null, {
         statusCode: 200,
         body: JSON.stringify(text),

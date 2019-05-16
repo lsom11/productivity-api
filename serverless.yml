@@ -65,7 +65,6 @@ functions:
           path: config/text
           method: get
           cors: true
-          authorizer: verify-token
 
   configFeatures:
     handler: api/handlers/config/ConfigHandler.features

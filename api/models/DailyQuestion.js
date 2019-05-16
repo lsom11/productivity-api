@@ -10,6 +10,13 @@ const DailyQuestionSchema = Joi.object().keys({
   question: Joi.string().required(),
   answer: Joi.string().optional(),
   user_id: Joi.string().required(),
+  frequency: Joi.array()
+    .items(
+      Joi.object().keys({
+        day: Joi.String,
+      })
+    )
+    .required(),
 });
 
 const schema = Joigoose.convert(DailyQuestionSchema);

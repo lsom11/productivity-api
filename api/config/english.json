@@ -1,3 +1,7 @@
 {
-  "test": "English"
+  "passwordInput": "Password",
+  "usernameInput": "Email or Username",
+  "submitText": "Submit",
+  "forgotPassText": "Forgot Password?",
+  "cancelText": "Cancel"
 }
