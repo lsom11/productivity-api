@@ -58,14 +58,6 @@ functions:
           cors: true
           authorizer: verify-token
 
-  configText:
-    handler: api/handlers/config/ConfigHandler.text
-    events:
-      - http:
-          path: config/text
-          method: get
-          cors: true
-
   configFeatures:
     handler: api/handlers/config/ConfigHandler.features
     events:
@@ -74,6 +66,14 @@ functions:
           method: get
           cors: true
           authorizer: verify-token
+
+  poc:
+    handler: api/handlers/config/ConfigHandler.poc
+    events:
+      - http:
+          path: poc
+          method: get
+          cors: true
 
   create:
     handler: api/handlers/dailyQuestions/DailyQuestionsHandler.create
