@@ -8,15 +8,12 @@ provider:
   stage: v1
   region: us-east-1
 
-plugins:
-  - serverless-offline
-
 functions:
   verify-token:
-    handler: api/handlers/auth/VerifyToken.auth
+    handler: handlers/verifyToken.token
 
   login:
-    handler: api/handlers/auth/AuthHandler.login
+    handler: handlers/auth.login
     events:
       - http:
           path: login
@@ -24,7 +21,7 @@ functions:
           cors: true
 
   register:
-    handler: api/handlers/auth/AuthHandler.register
+    handler: handlers/auth.register
     events:
       - http:
           path: register
@@ -32,7 +29,7 @@ functions:
           cors: true
 
   me:
-    handler: api/handlers/auth/AuthHandler.me
+    handler: handlers/auth.me
     events:
       - http:
           path: user
@@ -41,7 +38,7 @@ functions:
           authorizer: verify-token
 
   getQuestionsByUserId:
-    handler: api/handlers/user/UserHandler.getQuestionsByUserId
+    handler: handlers/user.getQuestionsByUserId
     events:
       - http:
           path: user/questions
@@ -50,7 +47,7 @@ functions:
           authorizer: verify-token
 
   getUsers:
-    handler: api/handlers/user/UserHandler.getUsers
+    handler: handlers/user.getUsers
     events:
       - http:
           path: users
@@ -59,7 +56,7 @@ functions:
           authorizer: verify-token
 
   configFeatures:
-    handler: api/handlers/config/ConfigHandler.features
+    handler: handlers/config.features
     events:
       - http:
           path: config/features
@@ -67,16 +64,8 @@ functions:
           cors: true
           authorizer: verify-token
 
-  poc:
-    handler: api/handlers/config/ConfigHandler.poc
-    events:
-      - http:
-          path: poc
-          method: get
-          cors: true
-
-  create:
-    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.create
+  dailyQuestionsCreate:
+    handler: handlers/dailyQuestions.create
     events:
       - http:
           path: daily_questions
@@ -84,16 +73,16 @@ functions:
           cors: true
           authorizer: verify-token
 
-  getOne:
-    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.getOne
+  dailyQuestionsGetOne:
+    handler: handlers/dailyQuestions.getOne
     events:
       - http:
           path: daily_questions/{id}
           method: get
           cors: true
           authorizer: verify-token
-  getAll:
-    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.getAll
+  dailyQuestionsGetAll:
+    handler: handlers/dailyQuestions.getAll
     events:
       - http:
           path: daily_questions
@@ -101,19 +90,23 @@ functions:
           cors: true
           authorizer: verify-token
 
-  update:
-    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.update
+  dailyQuestionsUpdate:
+    handler: handlers/dailyQuestions.update
     events:
       - http:
           path: daily_questions/{id}
           method: put
           cors: true
           authorizer: verify-token
-  delete:
-    handler: api/handlers/dailyQuestions/DailyQuestionsHandler.delete
+  dailyQuestionsDelete:
+    handler: handlers/dailyQuestions.delete
     events:
       - http:
           path: daily_questions/{id}
           method: delete
           cors: true
           authorizer: verify-token
+
+plugins:
+  - serverless-offline
+  - serverless-mocha-plugin

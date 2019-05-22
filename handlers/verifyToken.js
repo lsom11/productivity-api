@@ -1,9 +1,9 @@
 require('dotenv').config();
 const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 
-const { generatePolicy } = require('../../helpers/AuthHelpers');
+const { generatePolicy } = require('../helpers/AuthHelpers');
 
-module.exports.auth = (event, context, callback) => {
+module.exports.token = (event, context, callback) => {
   // check header or url parameters or post parameters for token
   const token = event.authorizationToken;
 

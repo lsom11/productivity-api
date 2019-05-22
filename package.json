@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "start": "node start.js",
-    "dev": "serverless offline start -p v1 --skipCacheInvalidation",
-    "test": "mocha api/tests --recursive --watch",
+    "dev": "serverless offline start",
+    "test": "serverless invoke test",
     "deploy": "serverless deploy -v --aws-profile productivity-api",
     "seed": "babel-node api/seeders/dailyQuestionSeeder.js"
   },
@@ -35,6 +35,7 @@
     "jsonwebtoken": "^8.5.1",
     "lint-staged": "^8.1.7",
     "mongoose": "^5.5.5",
+    "serverless-mocha-plugin": "^1.10.0",
     "serverless-offline": "^4.10.0"
   },
   "devDependencies": {

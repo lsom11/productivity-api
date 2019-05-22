@@ -2,9 +2,9 @@ require('dotenv').config();
 
 // AuthHandler.js
 
-const connectToDatabase = require('../../db');
+const connectToDatabase = require('../db');
 
-const { me, login, register } = require('../../helpers/AuthHelpers');
+const { me, login, register } = require('../helpers/AuthHelpers');
 
 module.exports.login = (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
@@ -15,7 +15,7 @@ module.exports.login = (event, context) => {
       body: JSON.stringify(session),
     }))
     .catch(err => ({
-      statusCode: err.statusCode || 500,
+      statusCode: err.statusCode || 404,
       headers: { 'Content-Type': 'text/plain' },
       body: { stack: err.stack, message: err.message },
     }));
@@ -30,7 +30,7 @@ module.exports.register = (event, context) => {
       body: JSON.stringify(session),
     }))
     .catch(err => ({
-      statusCode: err.statusCode || 500,
+      statusCode: err.statusCode || 404,
       headers: { 'Content-Type': 'text/plain' },
       body: err.message,
     }));
@@ -47,7 +47,7 @@ module.exports.me = (event, context) => {
       body: JSON.stringify(session),
     }))
     .catch(err => ({
-      statusCode: err.statusCode || 500,
+      statusCode: err.statusCode || 404,
       headers: { 'Content-Type': 'text/plain' },
       body: { stack: err.stack, message: err.message },
     }));
