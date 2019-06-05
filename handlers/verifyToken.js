@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken'); // used to create, sign, and verify tokens
 const { generatePolicy } = require('../helpers/AuthHelpers');
 
 module.exports.token = (event, context, callback) => {
+  console.log('here');
   // check header or url parameters or post parameters for token
   const token = event.authorizationToken;
 
