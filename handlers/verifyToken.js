@@ -6,7 +6,7 @@ const { generatePolicy } = require('../helpers/AuthHelpers');
 module.exports.token = (event, context, callback) => {
   // check header or url parameters or post parameters for token
   const token = event.authorizationToken;
-
+  console.log('unauth');
   if (!token) return callback(null, 'Unauthorized');
   // verifies secret and checks exp
   jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
