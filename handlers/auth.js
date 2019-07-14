@@ -8,7 +8,6 @@ const { me, login, register } = require('../helpers/AuthHelpers');
 
 module.exports.login = (event, context) => {
   context.callbackWaitsForEmptyEventLoop = false;
-  console.log(event);
   return connectToDatabase()
     .then(() => login(JSON.parse(event.body)))
     .then(session => ({
