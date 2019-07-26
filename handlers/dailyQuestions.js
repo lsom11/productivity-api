@@ -11,6 +11,7 @@ module.exports.create = (event, context, callback) => {
     )
     .then(session => {
       const body = JSON.parse(event.body);
+      console.log(body, 'here body');
       body.user_id = session._id;
 
       DailyQuestion.create(body)
