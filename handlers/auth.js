@@ -7,6 +7,7 @@ const connectToDatabase = require('../db');
 const { me, login, register } = require('../helpers/AuthHelpers');
 
 module.exports.login = (event, context) => {
+  console.log('login');
   context.callbackWaitsForEmptyEventLoop = false;
   return connectToDatabase()
     .then(() => login(JSON.parse(event.body)))
