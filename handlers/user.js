@@ -7,6 +7,7 @@ const connectToDatabase = require('../db');
 const { getUsers } = require('../helpers/UserHelpers');
 
 module.exports.getUsers = (event, context) => {
+  console.log(event);
   context.callbackWaitsForEmptyEventLoop = false;
   return connectToDatabase()
     .then(getUsers)
