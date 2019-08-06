@@ -10,6 +10,7 @@ const DailyQuestionSchema = Joi.object().keys({
   question: Joi.string().required(),
   answer: Joi.string().optional(),
   user_id: Joi.string().required(),
+  date: Joi.date().required(),
   frequency: Joi.array()
     .items(
       Joi.object().keys({
