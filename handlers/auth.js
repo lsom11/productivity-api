@@ -22,6 +22,7 @@ module.exports.login = (event, context) => {
 };
 
 module.exports.register = (event, context) => {
+  console.log(context);
   context.callbackWaitsForEmptyEventLoop = false;
   return connectToDatabase()
     .then(() => register(JSON.parse(event.body)))
