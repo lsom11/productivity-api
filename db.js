@@ -7,7 +7,7 @@ let isConnected;
 
 const connectToDatabase = () => {
   if (isConnected) {
-    console.log('=> using existing database connection');
+    console.log('=> using existing database connection' + isConnected);
     return Promise.resolve();
   }
 
