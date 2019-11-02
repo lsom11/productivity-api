@@ -34,7 +34,7 @@
     "joigoose": "^4.0.8",
     "jsonwebtoken": "^8.5.1",
     "lint-staged": "^8.1.7",
-    "mongoose": "^5.5.5",
+    "mongoose": "^5.7.5",
     "serverless-mocha-plugin": "^1.10.0",
     "serverless-offline": "^4.10.0"
   },
